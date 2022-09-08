@@ -6,9 +6,33 @@ __pycache__/
 # C extensions
 *.so
 
+#second worker
+model/worker2.py
+
+# data uncompressed
+input/Data/Archive/*
+input/Data/TumOnlineOld/*
+input/Data/TumOnline/Source/*
+
+#results
+results/*
+
 # plots
 plots/
 *.gif
+booth/files/relevant_graphs
+model/Data/visualization/*
+visualization/data/tab*
+
+# latex aux files
+MidtermPresentation/*.toc 
+MidtermPresentation/*.aux 
+MidtermPresentation/*.log 
+MidtermPresentation/*.out 
+MidtermPresentation/*.snm 
+MidtermPresentation/*.nav 
+MidtermPresentation/*.blg 
+MidtermPresentation/*.bbl
 
 # Distribution / packaging
 .Python
@@ -48,6 +72,18 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+
+# data folders
+inputData/15W/
+inputData/16S/
+inputData/Conflicts/
+inputData/Teilnehmer/
+inputData/Rooms/
+inputData/*.pickle
+
+# temporary formats
+*.txt
+*.pickle
 
 # Translations
 *.mo

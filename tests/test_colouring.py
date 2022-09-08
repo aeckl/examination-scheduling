@@ -10,8 +10,10 @@ for p in paths:
     if p == 'examination-scheduling':
         break
 sys.path.append(path)
+
 import unittest
-from booth.colouring import ColorGraph
+from heuristics.ColorGraph import ColorGraph
+from heuristics.ConstrainedColorGraph import EqualizedColorGraph
 
 
 class TestColouring(unittest.TestCase):
@@ -23,7 +25,7 @@ class TestColouring(unittest.TestCase):
         then we compare it with some other to check if it is random
         """
         n = 16
-        cgraph = ColorGraph()
+        cgraph = EqualizedColorGraph()
         cgraph.build_rand_graph(nb_nodes=n)
         # Verify if we have the right number of nodes
         self.assertEqual(len(cgraph.graph.nodes()), n)
@@ -60,7 +62,7 @@ class TestColouring(unittest.TestCase):
             cgraph.color_graph_rand()
             nb_white = len(cgraph.colours)
             for i in range(len(cgraph.history)):
-                nb_white_hist = len([w for n, w in cgraph.history[i].iteritems() if w == 'white'])
+                nb_white_hist = len([w for n, w in cgraph.history[i].iteritems() if w == -1])
                 self.assertEqual(nb_white_hist, nb_white - i)
             for node in cgraph.graph.nodes():
                 self.assertEqual(cgraph.colours[node], cgraph.history[len(cgraph.history) - 1][node])
@@ -75,7 +77,7 @@ class TestColouring(unittest.TestCase):
             cgraph.color_graph_rand_iter(it=10, save=False)
             nb_white = len(cgraph.colours)
             for i in range(len(cgraph.history)):
-                nb_white_hist = len([w for n, w in cgraph.history[i].iteritems() if w == 'white'])
+                nb_white_hist = len([w for n, w in cgraph.history[i].iteritems() if w == -1])
                 self.assertEqual(nb_white_hist, nb_white - i)
             for node in cgraph.graph.nodes():
                 self.assertEqual(cgraph.colours[node], cgraph.history[len(cgraph.history) - 1][node])
@@ -93,6 +95,11 @@ class TestColouring(unittest.TestCase):
                 if cgraph.colours[edge[0]] == cgraph.colours[edge[1]]:
                     is_correct = False
             self.assertTrue(is_correct)
+
+    def testSortedNodeHistory(self):
+        """ We check if the returned list has all the nodes only one time
+        """
+        pass
 
 if __name__ == "__main__":
     unittest.main()
